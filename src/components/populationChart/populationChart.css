@@ -1,0 +1,60 @@
+.chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    background-color: #F9F9F9;
+    color: #333333;
+    margin: 80px;
+    padding: 80px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .recharts-wrapper {
+        background-color: #FFFFFF;
+        border-radius: 5px;
+        border: 1px solid #DDDDDD;
+        margin: 10px;
+        /* padding: 5px; */
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        width: 800px;
+        height: 500px;
+      }
+      
+    
+    .recharts-cartesian-axis-line {
+    stroke: #ff1111;
+    }
+    
+    .recharts-cartesian-axis-tick-value {
+        fill: #fe35b1;
+        font-size: 10px;
+        font-weight: bold;
+        width: 10px;
+      }
+    
+    .recharts-cartesian-grid line {
+    stroke: #DDDDDD;
+    }
+    
+    .recharts-tooltip {
+    background-color: #FFFFFF;
+    color: #333333;
+    border-radius: 5px;
+    border: 1px solid #DDDDDD;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .recharts-bar-rectangles {
+    fill: #E74C3C;
+    fill-opacity: 0.8;
+    stroke: #FFFFFF;
+    stroke-width: 2px;
+    }
+    
+    .recharts-line-dots {
+    fill: #1ABC9C;
+    stroke: #FFFFFF;
+    stroke-width: 2px;
+    }

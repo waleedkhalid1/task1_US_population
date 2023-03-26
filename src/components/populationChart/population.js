@@ -1,6 +1,20 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  BarChart,
+  Bar,
+  Cell,
+} from "recharts";
+import "./populationChart.css";
+import PopulationLineChart from "./graphs/populationLineChart"
+import PopulationBarChart from "./graphs/populationBarChart";
 
 class PopulationChart extends Component {
   constructor(props) {
@@ -8,6 +22,7 @@ class PopulationChart extends Component {
     this.state = {
       populationData: [],
       historyLength: 10,
+      selectedYear: new Date().getFullYear(),
       isLoading: false,
       error: null,
     };
@@ -20,7 +35,9 @@ class PopulationChart extends Component {
   async fetchData() {
     this.setState({ isLoading: true, error: null });
     try {
-      const response = await axios.get("https://datausa.io/api/data?drilldowns=Nation&measures=Population");
+      const response = await axios.get(
+        "https://datausa.io/api/data?drilldowns=Nation&measures=Population"
+      );
       const data = response.data.data;
       const formattedData = data.map((d) => ({
         year: d.Year,
@@ -38,42 +55,54 @@ class PopulationChart extends Component {
 
   render() {
     const { populationData, historyLength, isLoading, error } = this.state;
-
+  
     const filteredData = populationData.filter((d) => {
       const currentYear = new Date().getFullYear();
       const historyEndYear = currentYear - historyLength;
       return parseInt(d.year) >= historyEndYear && parseInt(d.year) <= currentYear;
     });
-
+  
     if (isLoading) {
       return <div>Loading...</div>;
     }
-
+  
     if (error) {
       return <div>Error: {error}</div>;
     }
-
+  
     return (
       <div className="App">
-        <div>
-          <label htmlFor="historyLength">Select history length: </label>
-          <select name="historyLength" id="historyLength" onChange={this.handleHistoryLengthChange} value={historyLength}>
-            <option value="3">3 years</option>
-            <option value="5">5 years</option>
-            <option value="10">10 years</option>
-          </select>
+        
+        <div className="chart-container">
+        <div className="container">
+          
+          <div className="field">
+            <label className="label" >
+              Select history length:
+            </label>
+            <div className="control">
+              <div className="select">
+                <select
+                  id="historyLength"
+                  name="historyLength"
+                  onChange={this.handleHistoryLengthChange}
+                  value={historyLength}
+                >
+                  <option value="3">3 years</option>
+                  <option value="5">5 years</option>
+                  <option value="10">10 years</option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
-        <LineChart width={800} height={400} data={filteredData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="year" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="population" stroke="#8884d8" />
-        </LineChart>
+          <PopulationLineChart data={filteredData}/>
+          <PopulationBarChart data={filteredData} />
+        </div>
       </div>
     );
   }
+  
 }
 
 export default PopulationChart;
