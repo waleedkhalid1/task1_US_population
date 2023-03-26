@@ -3,6 +3,7 @@ import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Bar, Cell } from "recha
 
 const PopulationBarChart = ({ data, wrapperStyles }) => {
   return (
+    <div className="caption">
       <BarChart width={500} height={250} data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="year" stroke="#ffffff" />
@@ -14,6 +15,8 @@ const PopulationBarChart = ({ data, wrapperStyles }) => {
           ))}
         </Bar>
       </BarChart>
+      <caption>Bar Chart</caption>
+      </div>
   );
 };
 
