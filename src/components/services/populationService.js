@@ -5,8 +5,8 @@ export async function fetchPopulationData() {
     const response = await axios.get(
       "https://datausa.io/api/data?drilldowns=Nation&measures=Population"
     );
-    const data = response.data.data;
-    const formattedData = data.map((data) => ({
+    const populationData = response.data.data;
+    const formattedData = populationData.map((data) => ({
       year: data.Year,
       population: data.Population,
     }));
